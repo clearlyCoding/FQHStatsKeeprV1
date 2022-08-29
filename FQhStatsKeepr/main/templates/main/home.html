@@ -1,0 +1,10 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+  <div class="row">
+    {% for game in Games %} 
+        <p>{{game.game_Date}}</p>
+        <p> Red - Blue </p>
+        <p>{{game.teamRed_score}} - {{game.teamBlue_score}} </p>
+    {% endfor %}
+{% endblock %}

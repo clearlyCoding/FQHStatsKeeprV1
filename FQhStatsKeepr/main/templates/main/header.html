@@ -1,0 +1,29 @@
+<head>
+    {% load static %}
+    <!-- Prism CSS -->
+    <!-- <link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet"> -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+  <nav>
+      <nav>
+    <div class="nav-wrapper grey darken-2">
+      <a href="/" class="brand-logo">FQH</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn grey lighten-2"> <span class = "black-text"> Games Played </span></a></li>
+        <li><a class="waves-effect waves-light btn grey lighten-2"><span class = "black-text"> Player Stats</span></a></li>
+        <li><a href='/newGame' class="waves-effect waves-light btn grey lighten-2"><span class = "black-text"> New Game</span></a></li>  
+      </ul>
+    </div>
+  </nav>
+  </nav>
+  {% block content %}
+  {% endblock %}
+</body>
+
+<!-- Prism JS -->
+<!-- <script src="{% static 'tinymce/js/prism.js' %}"></script> -->
+<!-- <script src="{% static 'main/js/app.js' %}"></script> -->

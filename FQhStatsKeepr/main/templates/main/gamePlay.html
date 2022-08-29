@@ -1,0 +1,303 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+
+<script>
+	var redTeam = [];
+	var blueTeam = [];
+
+		function udpateScores(player_name, goals, assists, teamRoster){
+		var teamRosterRevised = []
+		if (teamRoster.length > 0) {
+			i=0
+			for (z=0; z<teamRoster.length; z++){
+				if (player_name != teamRoster[z]['player_name']) {
+					teamRosterRevised[i] = teamRoster[z]
+					i++;				
+				}
+			}
+			teamRoster = teamRosterRevised
+		}
+		teamRoster.push({player_name: player_name,'Goals' : goals,'Assists' : assists});
+		return teamRoster
+
+	}
+</script>
+
+
+<style>
+	.center {
+		border: 5px;
+		display: flex;
+		justify-content: center;
+	}
+	.TotalBlue {
+		font-size:  50px;
+	}
+	.TotalRed {
+		font-size:  50px;
+	}
+</style>
+
+<div class = "center">
+	<div class ="card-panel red darken-1">
+		<span class="white-text">
+			Red Score
+			<div class = "TotalRed">0</div>
+		</span>
+	</div>
+	&nbsp;&nbsp;&nbsp;
+	<div class ="card-panel blue darken-1">
+		<span class="white-text">
+			Blue Score
+			<div class = "TotalBlue">0</div> 
+		</span>
+	</div> 
+
+</div>
+
+
+</div>
+<div class = "row">
+	<div class =  "col s6">
+		<div class= "container">
+			Red Team
+			{% for position, players in Game.teamRed_players.items %}
+
+				<p>{{position}} - {{players}}</p>
+			<style>
+				.R_counter_{{forloop.counter}} {
+					font-size:  24px;
+					border-radius:  9%;
+				}
+				.R_counter2_{{forloop.counter}} {
+					font-size:  22px;
+					border-radius:  9%;
+				}
+			</style>
+			
+
+				<div class ="R_playerCounter">
+				<span class ="new badge orange" data-badge-caption = ""><div class = "R_counter2_{{forloop.counter}}"> 0 </div></span>
+				<span class ="new badge green" data-badge-caption = ""><div class = "R_counter_{{forloop.counter}}"> 0 </div></span>
+
+				
+			</div>
+			<div class = "buttons text-center">
+				<a class="waves-effect waves-light btn"><div class="R_addp_{{forloop.counter}}">add point</div></a>
+				<a class="waves-effect waves-light btn"><div class="R_adda_{{forloop.counter}}">add assist</div></a>
+				<a class="waves-effect waves-light btn"><div class="R_minp_{{forloop.counter}}">minus point</div></a>
+				<a class="waves-effect waves-light btn"><div class="R_mina_{{forloop.counter}}">minus assist</div></a>
+			</div>
+
+			<script type="text/javascript">
+				let R_addp_{{forloop.counter}} = document.querySelector (".R_addp_{{forloop.counter}}");
+				let R_adda_{{forloop.counter}} = document.querySelector (".R_adda_{{forloop.counter}}");
+				let R_minp_{{forloop.counter}} = document.querySelector (".R_minp_{{forloop.counter}}");
+				let R_mina_{{forloop.counter}} = document.querySelector (".R_mina_{{forloop.counter}}");
+				let R_counter_{{forloop.counter}} = document.querySelector(".R_counter_{{forloop.counter}}");
+				let R_counter2_{{forloop.counter}} = document.querySelector(".R_counter2_{{forloop.counter}}");
+
+
+				R_addp_{{forloop.counter}}.addEventListener('click', R_addp{{forloop.counter}}_g);
+				R_adda_{{forloop.counter}}.addEventListener('click', R_addp_{{forloop.counter}}_a);
+				R_minp_{{forloop.counter}}.addEventListener('click', R_minp_{{forloop.counter}}_g);
+				R_mina_{{forloop.counter}}.addEventListener('click', R_minp_{{forloop.counter}}_a);
+
+
+
+				function R_addp{{forloop.counter}}_g(){
+					counter_num = R_counter_{{forloop.counter}}.innerHTML
+					totalRed = document.querySelector(".TotalRed").innerHTML
+
+					R_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+					document.querySelector(".TotalRed").innerHTML = parseInt(totalRed) + 1
+
+					redTeam = udpateScores("{{players}}", 
+											R_counter_{{forloop.counter}}.innerHTML, 
+											R_counter2_{{forloop.counter}}.innerHTML, redTeam)
+				}
+
+				function R_addp_{{forloop.counter}}_a(){
+					counter_num = R_counter2_{{forloop.counter}}.innerHTML
+
+					R_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+
+					redTeam = udpateScores("{{players}}", 
+											R_counter_{{forloop.counter}}.innerHTML, 
+											R_counter2_{{forloop.counter}}.innerHTML, redTeam)
+				}
+
+				function R_minp_{{forloop.counter}}_g(){
+					counter_num = R_counter_{{forloop.counter}}.innerHTML
+					totalRed = document.querySelector(".TotalRed").innerHTML
+					if (counter_num ==0){
+						return false
+					}
+					R_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+					if (totalRed ==0){
+						return false
+					}
+					
+					document.querySelector(".TotalRed").innerHTML = parseInt(totalRed) - 1
+
+										redTeam = udpateScores("{{players}}", 
+											R_counter_{{forloop.counter}}.innerHTML, 
+											R_counter2_{{forloop.counter}}.innerHTML, redTeam)
+				}
+
+				function R_minp_{{forloop.counter}}_a(){
+					counter_num = R_counter2_{{forloop.counter}}.innerHTML
+					if (counter_num ==0){
+						return false
+					}
+					R_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+
+					redTeam = udpateScores("{{players}}", 
+											R_counter_{{forloop.counter}}.innerHTML, 
+											R_counter2_{{forloop.counter}}.innerHTML, redTeam)
+				}
+			</script>
+			{% endfor %}
+		</div>
+	</div>
+	<div class ="col s6">
+		<div class = "container">
+			Blue Team
+			{% for position, players in Game.teamBlue_players.items %}
+				<p>{{position}} - {{players}}</p>
+				<style>
+				.B_counter_{{forloop.counter}} {
+					font-size:  25px;
+					border-radius:  5%;
+				}
+				.B_counter2_{{forloop.counter}} {
+					font-size:  25px;
+					border-radius:  5%;
+				}
+			</style>
+			
+
+				<div class ="B_playerCounter">
+				<span class ="new badge orange" data-badge-caption = ""><div class = "B_counter2_{{forloop.counter}}"> 0 </div></span>
+				<span class ="new badge green" data-badge-caption = ""><div class = "B_counter_{{forloop.counter}}"> 0 </div></span>
+
+				
+			</div>
+			<div class = "buttons text-center">
+				<a class="waves-effect waves-light btn"><div class="B_addp_{{forloop.counter}}">add point</div></a>
+				<a class="waves-effect waves-light btn"><div class="B_adda_{{forloop.counter}}">add assist</div></a>
+				<a class="waves-effect waves-light btn"><div class="B_minp_{{forloop.counter}}">minus point</div></a>
+				<a class="waves-effect waves-light btn"><div class="B_mina_{{forloop.counter}}">minus assist</div></a>
+			</div>
+
+			<script type="text/javascript">
+				let B_addp_{{forloop.counter}} = document.querySelector (".B_addp_{{forloop.counter}}");
+				let B_adda_{{forloop.counter}} = document.querySelector (".B_adda_{{forloop.counter}}");
+				let B_minp_{{forloop.counter}} = document.querySelector (".B_minp_{{forloop.counter}}");
+				let B_mina_{{forloop.counter}} = document.querySelector (".B_mina_{{forloop.counter}}");
+				let B_counter_{{forloop.counter}} = document.querySelector(".B_counter_{{forloop.counter}}");
+				let B_counter2_{{forloop.counter}} = document.querySelector(".B_counter2_{{forloop.counter}}");
+
+
+				B_addp_{{forloop.counter}}.addEventListener('click', B_addp{{forloop.counter}}_g);
+				B_adda_{{forloop.counter}}.addEventListener('click', B_addp_{{forloop.counter}}_a);
+				B_minp_{{forloop.counter}}.addEventListener('click', B_minp_{{forloop.counter}}_g);
+				B_mina_{{forloop.counter}}.addEventListener('click', B_minp_{{forloop.counter}}_a);
+
+
+
+				function B_addp{{forloop.counter}}_g(){
+					counter_num = B_counter_{{forloop.counter}}.innerHTML
+					totalBlue = document.querySelector(".TotalBlue").innerHTML
+
+					B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+					document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) + 1
+
+
+					blueTeam = udpateScores("{{players}}", 
+											B_counter_{{forloop.counter}}.innerHTML, 
+											B_counter2_{{forloop.counter}}.innerHTML, blueTeam)					
+				}
+
+				function B_addp_{{forloop.counter}}_a(){
+					counter_num = B_counter2_{{forloop.counter}}.innerHTML
+
+					B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+
+					blueTeam = udpateScores("{{players}}", 
+											B_counter_{{forloop.counter}}.innerHTML, 
+											B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
+				}
+
+				function B_minp_{{forloop.counter}}_g(){
+					counter_num = B_counter_{{forloop.counter}}.innerHTML
+					totalBlue = document.querySelector(".TotalBlue").innerHTML
+					if (counter_num ==0){
+						return false
+					}
+					B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+					if (totalBlue ==0){
+						return false
+					}
+					document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) - 1
+
+					blueTeam = udpateScores("{{players}}", 
+											B_counter_{{forloop.counter}}.innerHTML, 
+											B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
+				}
+
+				function B_minp_{{forloop.counter}}_a(){
+					counter_num = B_counter2_{{forloop.counter}}.innerHTML
+					if (counter_num ==0){
+						return false
+					}
+					B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+
+					blueTeam = udpateScores("{{players}}", 
+											B_counter_{{forloop.counter}}.innerHTML, 
+											B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
+				}
+			</script>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	
+	.End {
+		font-size: 40px;
+	}
+</style>
+
+<div class = "center">
+	<div class = "buttons text-center">
+		<a class="waves-effect waves-light btn-large"><div class="End">End Game</div></a>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+
+
+
+
+
+	let butnSub = document.querySelector(".End");
+
+	butnSub.addEventListener('click', sendResult);
+
+	function sendResult(){
+		fetch("{% url 'main:gamePlay' %}", {
+	          method: 'POST',
+	          headers: { 'Content-Type': 'application/json' },
+	          body: JSON.stringify({"redTeam": redTeam, "blueTeam": blueTeam, "gameCode": "{{Game.game_code}}"})
+	      })
+	 }
+
+
+
+</script>
+{% endblock %}
