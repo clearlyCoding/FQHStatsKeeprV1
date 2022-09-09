@@ -1,5 +1,186 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
- abc
+{% load templatetags %}
+<!-- teamRed_score = models.IntegerField()
+	teamBlue_score = models.IntegerField()
+	teamRed_players = models.JSONField()
+	teamBlue_players = models.JSONField()
+	teamRed_indexPlayerGoalsandAssist = models.JSONField()
+	teamBlue_indexPlayerGoalsandAssist = models.JSONField()
+	game_Complete = models.BooleanField(default = False)
+	game_Date = models.DateField ('date Played')
+	game_code = models.CharField(max_length = 900, default = '') -->
+
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-ao2g{border-color:#333333;text-align:center;vertical-align:top}
+    </style>
+    <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-ao2g" rowspan="4"></th>
+        <th class="tg-ao2g">Date</th>
+        <th class="tg-ao2g" colspan="2">{{Game.game_Date}}</th>
+        <th class="tg-ao2g" colspan="3" rowspan="2"></th>
+        <th class="tg-ao2g" rowspan="2">Final Score</th>
+        <th class="tg-ao2g">Red</th>
+        <th class="tg-ao2g">Blue</th>
+      </tr>
+      <tr>
+        <th class="tg-ao2g" colspan="3"></th>
+        <th class="tg-ao2g">{{Game.teamRed_score}}</th>
+        <th class="tg-ao2g">{{Game.teamBlue_score}}</th>
+      </tr>
+      <tr>
+        <th class="tg-ao2g">Team Red</th>
+        <th class="tg-ao2g">{{Game.teamRed_score}}</th>
+        <th class="tg-ao2g"></th>
+        <th class="tg-ao2g"></th>
+        <th class="tg-ao2g" rowspan="2"></th>
+        <th class="tg-ao2g">Team Blue</th>
+        <th class="tg-ao2g">{{Game.teamBlue_score}}</th>
+        <th class="tg-ao2g"></th>
+        <th class="tg-ao2g"></th>
+      </tr>
+      <tr>
+        <th class="tg-ao2g">Player Name</th>
+        <th class="tg-ao2g">Goals</th>
+        <th class="tg-ao2g">Assists</th>
+        <th class="tg-ao2g">Points</th>
+        <th class="tg-ao2g">Player Name</th>
+        <th class="tg-ao2g">Goals</th>
+        <th class="tg-ao2g">Assists</th>
+        <th class="tg-ao2g">Points</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr>
+        <td class="tg-ao2g">1</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer1.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer1.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer1.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer1.points}} </td>
+        <td class="tg-ao2g">1</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer1.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer1.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer1.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer1.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">2</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer3.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer3.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer3.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer3.points}} </td>
+        <td class="tg-ao2g">2</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer3.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer3.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer3.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer3.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">3</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer4.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer4.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer4.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer4.points}} </td>
+        <td class="tg-ao2g">3</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer4.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer4.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer4.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer4.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">4</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer5.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer5.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer5.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer5.points}} </td>
+        <td class="tg-ao2g">4</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer5.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer5.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer5.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer5.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">5</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer6.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer6.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer6.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer6.points}} </td>
+        <td class="tg-ao2g">5</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer6.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer6.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer6.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer6.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">6</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer7.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer7.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer7.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer7.points}} </td>
+        <td class="tg-ao2g">6</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer7.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer7.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer7.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer7.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">7</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer8.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer8.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer8.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer8.points}} </td>
+        <td class="tg-ao2g">7</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer8.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer8.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer8.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer8.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">8</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer9.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer9.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer9.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer9.points}} </td>
+        <td class="tg-ao2g">8</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer9.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer9.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer9.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer9.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">9</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer10.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer10.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer10.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer10.points}} </td>
+        <td class="tg-ao2g">9</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer10.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer10.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer10.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer10.points}} </td>
+      </tr>
+      <tr>
+        <td class="tg-ao2g">G</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer2.Name}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer2.goals}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer2.assists}}</td>
+        <td class="tg-ao2g">{{wholeRed.redPlayer2.points}} </td>
+        <td class="tg-ao2g">G</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer2.Name}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer2.goals}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer2.assists}}</td>
+        <td class="tg-ao2g">{{wholeBlue.bluePlayer2.points}} </td>
+      </tr>
+    </tbody>
+    </table>
+
 {% endblock %}

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Game, Players
-from .forms import newGameForm
+from .forms import newGameForm, gamePlayForm
 from django.views.decorators.csrf import csrf_exempt,csrf_protect 
 import json,random, string
-
+from django.urls import reverse
+from urllib.parse import urlencode
 
 def homepage(request):
     return render (request = request,
@@ -49,12 +50,13 @@ def newGame (request):
             newGameInstance.game_Complete = False
             newGameInstance.game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(20))
             newGameInstance.save()
-            return render(request = request,
-                            template_name = 'main/gamePlay.html',
-                            context = {"Game":newGameInstance}
-                            )
+            
+            base_url = "/gamePlay"
+            gameCode_url = urlencode({'gameCode': newGameInstance.game_code})
+            url_additive = '{}?{}'.format(base_url,gameCode_url)
+            print (url_additive)
+            return redirect(url_additive)
 
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = newGameForm()
 
@@ -63,47 +65,66 @@ def newGame (request):
 
 @csrf_exempt
 def gamePlay (request):
+
     if request.method == 'POST':
         data = json.loads (request.body)
         redTeam = data['redTeam']
         blueTeam = data['blueTeam']
         gameInstance = Game.objects.get(game_code__exact= data['gameCode'])
-        
+
         for i, players in enumerate(redTeam):
             gameInstance.teamRed_score += int(players['Goals'])
-            gameInstance.teamRed_indexPlayerGoalsandAssist[i] = {'Goals': players['Goals'], 'Assists': players ['Assists']}
-            
+            gameInstance.teamRed_indexPlayerGoalsandAssist[players['player_name']] = {'goals': players['Goals'], 'assists': players ['Assists']}
 
-            #players individual stats...
-            # playersInstance = Players.objects.get(player_name__exact = redTeam['player_name'])
-            # playersInstance.player_lifeTimeGoals += int(players['Goals'])
-            # playersInstance.player_lifeTimeAssists += int(players['Assists'])
-            # playersInstance.player_lifeTimeScore = playersInstance.player_lifeTimeGoals + playersInstance.player_lifeTimeAssists
 
 
 
         for i, players in enumerate(blueTeam):
             gameInstance.teamBlue_score += int(players['Goals'])
-            gameInstance.teamBlue_indexPlayerGoalsandAssist[i] = {'Goals': players['Goals'], 'Assists': players ['Assists']}
+            gameInstance.teamBlue_indexPlayerGoalsandAssist[players['player_name']] = {'goals': players['Goals'], 'assists': players ['Assists']}
             
-
-            #players individual stats...
-            # playersInstance = Players.objects.get(player_name__exact = blueTeam['player_name'])
-            # playersInstance.player_lifeTimeGoals += int(players['Goals'])
-            # playersInstance.player_lifeTimeAssists += int(players['Assists'])
-            # playersInstance.player_lifeTimeScore = playersInstance.player_lifeTimeGoals + playersInstance.player_lifeTimeAssists
-
+        print(gameInstance.teamRed_indexPlayerGoalsandAssist)
         
         gameInstance.game_Complete = True
         gameInstance.save()
 
-        
+        base_url = "/endGame"
+        gameCode_url = urlencode({'gameCode': gameInstance.game_code})
+        url_additive = '{}?{}'.format(base_url, gameCode_url)
 
-        return render(request, 'main/endgame.html', context = {Game: gameInstance})
+        return redirect(url_additive)
+
     else:
+
+        gameCode  = request.GET.get('gameCode');
+        gameInstance = Game.objects.get(game_code__exact = gameCode)
         return render(request = request,
                         template_name = 'main/gamePlay.html',
-                        context = gameInstance)
+                        context = {"Game": gameInstance})
+@csrf_exempt
+def endGame(request):
+    gameCode  = request.GET.get('gameCode');
+    gameInstance = Game.objects.get(game_code__exact = gameCode)
+    redTeamPlayers = gameInstance.teamRed_players
+    blueTeamPlayers = gameInstance.teamBlue_players
 
-def endgame(request):
-    return render(HttpResponse('what'))
+    wholeRed = reStructure(redTeamPlayers,gameInstance.teamRed_indexPlayerGoalsandAssist)
+    wholeBlue = reStructure(blueTeamPlayers,gameInstance.teamBlue_indexPlayerGoalsandAssist)
+    print(wholeRed)
+    
+    return render(request = request, 
+                template_name='main/endGame.html', 
+                context = {'Game': gameInstance,
+                            'wholeRed':wholeRed, 'wholeBlue': wholeBlue})
+
+def reStructure(colorTeamPlayers, IndexedGoalsandAssists):
+    structuredDict={}
+    # print(colorTeamPlayers)
+    # print (IndexedGoalsandAssists)
+    for k,v in colorTeamPlayers.items():
+        structuredDict[k] = {'Name': v, 
+                            'goals': IndexedGoalsandAssists[v]['goals'], 
+                            'assists' : IndexedGoalsandAssists[v]['assists'],
+                            'points': int(IndexedGoalsandAssists[v]['goals']) + int(IndexedGoalsandAssists[v]['assists'])}
+    
+    return structuredDict 

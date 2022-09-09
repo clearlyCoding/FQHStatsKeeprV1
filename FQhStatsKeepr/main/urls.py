@@ -11,5 +11,5 @@ urlpatterns = [
 	path ("", views.homepage, name = "homepage"),
 	path ("newGame/", views.newGame, name = "newGame"),
 	path ("gamePlay/", views.gamePlay, name = "gamePlay"),
-	path ("endgame/", views.endgame, name = "endgame"),
+	path ("endGame/", views.endGame, name = "endGame"),
 ]

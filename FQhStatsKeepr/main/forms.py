@@ -25,3 +25,8 @@ class newGameForm (forms.Form):
 	bluePlayer10 = forms.CharField (label= 'Blue Player 10', max_length = 100, initial = "", required = False)
 
 	game_Date = forms.DateField(initial = datetime.date.today) 
+
+
+class gamePlayForm(forms.Form):
+	nothing= forms.CharField(label='',required = False)
+	
