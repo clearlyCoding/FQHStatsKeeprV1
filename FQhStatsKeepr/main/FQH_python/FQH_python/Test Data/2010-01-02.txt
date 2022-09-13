@@ -1,0 +1,4 @@
+Team, Red Blue, 13, 15
+Red, Umar Khan, 3, 0Red, Boxer Khan, 2, 3Red, Anas Saqib, 4, 1Red, Hamza Choudhry, 3, 4Red, Naveed Khan, 1, 0Red, Abdul Basir, 0, 0Red, Abdul Basit, 0, 0Red, Hasnain Quereshi, 0, 1Red, Asim Patel, 0, 1, 5
+Blue, Bilal Khan, 2, 1Blue, Ibrahim Choudhry, 4, 4Blue, Ammar Hussain, 2, 1Blue, Najam Jutt, 3, 1Blue, Urwa Jutt, 0, 1Blue, Saad Manzoor, 1, 0Blue, Abubakr Kadri, 3, 3Blue, Saad Shakil, 0, 1, 7
+

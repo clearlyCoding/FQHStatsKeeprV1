@@ -1,0 +1,25 @@
+Team, Red Blue, 7, 8
+
+Blue, Bilal Ali Khan, 0, 1 
+Blue, Bilal Khan, 2, 0
+Blue, Emmad Khan, 1, 0
+Blue, Fahad Chaudry, 2, 0
+Blue, Hamza Choudhry, 0, 2, 6
+Blue, Ibrahim Chaudhry, 1, 2
+Blue, Samer Jassar, 2, 0
+Blue, Tauseeq UNKNOWN, 0, 0
+
+Red, Abubakr Kadri, 0, 0
+Red, Ali-Raza Hussain, 1, 0
+Red, Ammar UNKNOWN, 1, 0
+Red, Anas Saqib, 1, 2
+Red, Mohammad Khan, 1, 3
+Red, Najam Jutt, 0, 0, 5
+Red, Naveed UNKNOWN, 1, 0
+Red, Umar Khan, 2, 0
+Red, Zaid Khan, 0, 1
+
+
+
+
+

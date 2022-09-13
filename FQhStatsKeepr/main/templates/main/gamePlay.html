@@ -63,10 +63,13 @@
 <div class="row">
 	<div class="col s6">
 		<div class="container">
-			Red Team
+			<h5><span class ="red-text text-darken-2">Red Team</span></h5>
 			{% for position, players in Game.teamRed_players.items %}
-
-			<p>{{position}} - {{players}}</p>
+			{% if forloop.counter == Game.teamRed_players.items|length %}
+			<br><br>	
+			<div class = "divider"></div>
+			{% endif %}
+			<p>{{players}}</p>
 			<style>
 				.R_counter_ {
 						{
@@ -187,14 +190,19 @@
 							R_counter2_{{forloop.counter}}.innerHTML, redTeam)
 				}
 			</script>
+
 			{% endfor %}
 		</div>
 	</div>
 	<div class="col s6">
 		<div class="container">
-			Blue Team
+			<h5><span class ="blue-text text-darken-2">Blue Team</span></h5>
 			{% for position, players in Game.teamBlue_players.items %}
-			<p>{{position}} - {{players}}</p>
+			{% if forloop.counter == Game.teamBlue_players.items|length %}
+			<br><br>	
+			<div class = "divider"></div>
+			{% endif %}
+			<p>{{players}}</p>
 			<style>
 				.B_counter_ {
 						{
@@ -220,99 +228,99 @@
 			</style>
 
 
-			<div class="B_playerCounter">
-				<span class="new badge orange" data-badge-caption="">
-					<div class="B_counter2_{{forloop.counter}}"> 0 </div>
-				</span>
-				<span class="new badge green" data-badge-caption="">
-					<div class="B_counter_{{forloop.counter}}"> 0 </div>
-				</span>
+				<div class="B_playerCounter">
+					<span class="new badge orange" data-badge-caption="">
+						<div class="B_counter2_{{forloop.counter}}"> 0 </div>
+					</span>
+					<span class="new badge green" data-badge-caption="">
+						<div class="B_counter_{{forloop.counter}}"> 0 </div>
+					</span>
 
 
-			</div>
-			<div class="buttons text-center">
-				<a class="waves-effect waves-light btn">
-					<div class="B_addp_{{forloop.counter}}">add point</div>
-				</a>
-				<a class="waves-effect waves-light btn">
-					<div class="B_adda_{{forloop.counter}}">add assist</div>
-				</a>
-				<a class="waves-effect waves-light btn">
-					<div class="B_minp_{{forloop.counter}}">minus point</div>
-				</a>
-				<a class="waves-effect waves-light btn">
-					<div class="B_mina_{{forloop.counter}}">minus assist</div>
-				</a>
-			</div>
+				</div>
+				<div class="buttons text-center">
+					<a class="waves-effect waves-light btn">
+						<div class="B_addp_{{forloop.counter}}">add point</div>
+					</a>
+					<a class="waves-effect waves-light btn">
+						<div class="B_adda_{{forloop.counter}}">add assist</div>
+					</a>
+					<a class="waves-effect waves-light btn">
+						<div class="B_minp_{{forloop.counter}}">minus point</div>
+					</a>
+					<a class="waves-effect waves-light btn">
+						<div class="B_mina_{{forloop.counter}}">minus assist</div>
+					</a>
+				</div>
 
-			<script type="text/javascript">
-				let B_addp_{{ forloop.counter }} = document.querySelector(".B_addp_{{forloop.counter}}");
-				let B_adda_{{ forloop.counter }} = document.querySelector(".B_adda_{{forloop.counter}}");
-				let B_minp_{{ forloop.counter }} = document.querySelector(".B_minp_{{forloop.counter}}");
-				let B_mina_{{ forloop.counter }} = document.querySelector(".B_mina_{{forloop.counter}}");
-				let B_counter_{{ forloop.counter }} = document.querySelector(".B_counter_{{forloop.counter}}");
-				let B_counter2_{{ forloop.counter }} = document.querySelector(".B_counter2_{{forloop.counter}}");
-
-
-				B_addp_{{forloop.counter}}.addEventListener('click', B_addp{{ forloop.counter }}_g);
-				B_adda_{{forloop.counter}}.addEventListener('click', B_addp_{{ forloop.counter }}_a);
-				B_minp_{{forloop.counter}}.addEventListener('click', B_minp_{{ forloop.counter }}_g);
-				B_mina_{{forloop.counter}}.addEventListener('click', B_minp_{{ forloop.counter }}_a);
+				<script type="text/javascript">
+					let B_addp_{{ forloop.counter }} = document.querySelector(".B_addp_{{forloop.counter}}");
+					let B_adda_{{ forloop.counter }} = document.querySelector(".B_adda_{{forloop.counter}}");
+					let B_minp_{{ forloop.counter }} = document.querySelector(".B_minp_{{forloop.counter}}");
+					let B_mina_{{ forloop.counter }} = document.querySelector(".B_mina_{{forloop.counter}}");
+					let B_counter_{{ forloop.counter }} = document.querySelector(".B_counter_{{forloop.counter}}");
+					let B_counter2_{{ forloop.counter }} = document.querySelector(".B_counter2_{{forloop.counter}}");
 
 
-
-				function B_addp{{forloop.counter}}_g(){
-					counter_num = B_counter_{{forloop.counter}}.innerHTML
-					totalBlue = document.querySelector(".TotalBlue").innerHTML
-
-					B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
-					document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) + 1
+					B_addp_{{forloop.counter}}.addEventListener('click', B_addp{{ forloop.counter }}_g);
+					B_adda_{{forloop.counter}}.addEventListener('click', B_addp_{{ forloop.counter }}_a);
+					B_minp_{{forloop.counter}}.addEventListener('click', B_minp_{{ forloop.counter }}_g);
+					B_mina_{{forloop.counter}}.addEventListener('click', B_minp_{{ forloop.counter }}_a);
 
 
-					blueTeam = udpateScores("{{players}}",
-						B_counter_{{ forloop.counter }}.innerHTML,
-							B_counter2_{{forloop.counter}}.innerHTML, blueTeam)					
-				}
 
-				function B_addp_{{forloop.counter}}_a(){
-					counter_num = B_counter2_{{forloop.counter}}.innerHTML
+					function B_addp{{forloop.counter}}_g(){
+						counter_num = B_counter_{{forloop.counter}}.innerHTML
+						totalBlue = document.querySelector(".TotalBlue").innerHTML
 
-					B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+						B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+						document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) + 1
 
-					blueTeam = udpateScores("{{players}}",
-						B_counter_{{ forloop.counter }}.innerHTML,
-							B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
-				}
 
-				function B_minp_{{forloop.counter}}_g(){
-					counter_num = B_counter_{{forloop.counter}}.innerHTML
-					totalBlue = document.querySelector(".TotalBlue").innerHTML
-					if (counter_num == 0) {
-						return false
+						blueTeam = udpateScores("{{players}}",
+							B_counter_{{ forloop.counter }}.innerHTML,
+								B_counter2_{{forloop.counter}}.innerHTML, blueTeam)					
 					}
-					B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
-					if (totalBlue == 0) {
-						return false
+
+					function B_addp_{{forloop.counter}}_a(){
+						counter_num = B_counter2_{{forloop.counter}}.innerHTML
+
+						B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) + 1
+
+						blueTeam = udpateScores("{{players}}",
+							B_counter_{{ forloop.counter }}.innerHTML,
+								B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
 					}
-					document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) - 1
 
-					blueTeam = udpateScores("{{players}}",
-						B_counter_{{ forloop.counter }}.innerHTML,
-							B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
-				}
+					function B_minp_{{forloop.counter}}_g(){
+						counter_num = B_counter_{{forloop.counter}}.innerHTML
+						totalBlue = document.querySelector(".TotalBlue").innerHTML
+						if (counter_num == 0) {
+							return false
+						}
+						B_counter_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+						if (totalBlue == 0) {
+							return false
+						}
+						document.querySelector(".TotalBlue").innerHTML = parseInt(totalBlue) - 1
 
-				function B_minp_{{forloop.counter}}_a(){
-					counter_num = B_counter2_{{forloop.counter}}.innerHTML
-					if (counter_num == 0) {
-						return false
+						blueTeam = udpateScores("{{players}}",
+							B_counter_{{ forloop.counter }}.innerHTML,
+								B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
 					}
-					B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
 
-					blueTeam = udpateScores("{{players}}",
-						B_counter_{{ forloop.counter }}.innerHTML,
-							B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
-				}
-			</script>
+					function B_minp_{{forloop.counter}}_a(){
+						counter_num = B_counter2_{{forloop.counter}}.innerHTML
+						if (counter_num == 0) {
+							return false
+						}
+						B_counter2_{{forloop.counter}}.innerHTML = parseInt(counter_num) - 1
+
+						blueTeam = udpateScores("{{players}}",
+							B_counter_{{ forloop.counter }}.innerHTML,
+								B_counter2_{{forloop.counter}}.innerHTML, blueTeam)	
+					}
+				</script>
 			{% endfor %}
 		</div>
 	</div>

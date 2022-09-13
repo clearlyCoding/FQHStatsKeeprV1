@@ -1,0 +1,2 @@
+Team, Red Blue, 15, 13
+Blue, Ali-Raza Hussain, 4, 2Blue, Anas Saqib, 2, 2Blue, Bilal Ali Khan, 1, 0Blue, Fahad Chaudry, 1, 2Blue, Ibrahim Chaudhry, 1, 2Blue, Mohammed Khan, 2, 2Blue, Saad Shakil, 0, 1, 5Red, Anas Qureshi, 1, 0Red, Bilal Khan, 2, 2Red, Emmad Khan, 4, 3Red, Hameed Shahnawaz, 0, 1Red, Hasnain Qureshi, 0, 0, 7Red, Mehmood UNKNOWN, 0, 1Red, Najam Jutt, 3, 4Red, Umar Khan, 5, 2

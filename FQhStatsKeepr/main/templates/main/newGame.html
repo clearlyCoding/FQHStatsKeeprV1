@@ -1,12 +1,45 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
+{% load static %}
 <div class= "container">
-	<form method = "POST">
-	{% csrf_token %}
-	{{form.as_table}}
+	<form class = 'col s12' method = "POST">
+		{% csrf_token %}
+		<div class = 'row'>
+			
+			<div class = "col s2 offset-s10">{{form.game_Date}}<label>Game Date</label></div>
 
-	 <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Start Game</button>
+			<div class = 'col s6'><h1><span class="red-text text-darken-2">Red Team</span></h1></div>
+			<div class = 'col s6'><h1><span class="blue-text text-darken-2">Blue Team</span></h1></div>
+			<div class = "col s6">{{form.redPlayer1}}<label>{{form.redPlayer1.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer1}}<label>{{form.bluePlayer1.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer2}}<label >{{form.redPlayer2.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer2}}<label >{{form.bluePlayer2.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer3}}<label >{{form.redPlayer3.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer3}}<label >{{form.bluePlayer3.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer4}}<label >{{form.redPlayer4.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer4}}<label >{{form.bluePlayer4.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer5}}<label >{{form.redPlayer5.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer5}}<label >{{form.bluePlayer5.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer6}}<label >{{form.redPlayer6.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer6}}<label >{{form.bluePlayer6.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer7}}<label >{{form.redPlayer7.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer7}}<label >{{form.bluePlayer7.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer8}}<label >{{form.redPlayer8.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer8}}<label >{{form.bluePlayer8.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer9}}<label >{{form.redPlayer9.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer9}}<label >{{form.bluePlayer9.label}}</label></div>
+			<div class = "col s6">{{form.redPlayer10}}<label >{{form.redPlayer10.label}}</label></div>
+			<div class = "col s6">{{form.bluePlayer10}}<label >{{form.bluePlayer10.label}}</label></div>
+
+
+		</div>
+	<div class = "row">
+		<div class = "col s5 offset-s5">
+		<button style="background-color:#2c2b2b; color:rgb(138, 132, 132)" class="btn btn-outline-info btn-large" type="submit">Start Game</button>
+	</div>
+	</div>
+	 
 	</form>
 </div>
 {% endblock %}

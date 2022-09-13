@@ -1,0 +1,16 @@
+Team, Red Blue, 12, 15
+
+Red, Najam Jutt, 2, 2
+Red, Hamza Choudhry, 4, 0
+Red, Samer Jassar, 4, 3
+Red, Osama Iqbal, 2, 2
+Red, Anas Qureshi, 0, 2
+Red, Abdullah Mushtaq, 0, 3, 5
+
+Blue, Abdullah Chaudhry, 4, 1
+Blue, Anas Saqib, 3, 5
+Blue, Usama Amir, 1, 2
+Blue, Umar Khan, 5, 0
+Blue, Hasnain Quereshi, 2, 3
+Blue, Hameed Shanawaz, 0, 0, 8
+

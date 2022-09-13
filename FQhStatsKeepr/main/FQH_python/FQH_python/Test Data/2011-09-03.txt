@@ -1,0 +1,12 @@
+Team, Red Blue, 10, 15
+
+Red, Samer Jassar, 4, 4
+Red, Urwa Jutt, 3, 1
+Red, Saad Manzoor, 3, 3
+Red, Abdullah Mushtaq, 0, 0, 5
+
+Blue, Abdullah Chaudhry, 8, 5
+Blue, Umar Khan, 3, 3
+Blue, Abdiwelli Nur, 4, 2
+Blue, Emaad Khan, 0, 3, 10
+

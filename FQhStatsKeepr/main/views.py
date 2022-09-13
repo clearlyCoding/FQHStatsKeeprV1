@@ -18,7 +18,6 @@ def newGame (request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = newGameForm(request.POST)
-
         # check whether it's valid:
         if form.is_valid():
             newGameInstance = Game()
@@ -50,13 +49,14 @@ def newGame (request):
             newGameInstance.game_Complete = False
             newGameInstance.game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(20))
             newGameInstance.save()
-            
+           
             base_url = "/gamePlay"
             gameCode_url = urlencode({'gameCode': newGameInstance.game_code})
             url_additive = '{}?{}'.format(base_url,gameCode_url)
             print (url_additive)
             return redirect(url_additive)
-
+        print(form.errors)
+        return redirect("/newGame")
     else:
         form = newGameForm()
 
@@ -98,9 +98,17 @@ def gamePlay (request):
 
         gameCode  = request.GET.get('gameCode');
         gameInstance = Game.objects.get(game_code__exact = gameCode)
-        return render(request = request,
-                        template_name = 'main/gamePlay.html',
-                        context = {"Game": gameInstance})
+
+        if gameInstance.game_Complete == False:
+            return render(request = request,
+                            template_name = 'main/gamePlay.html',
+                            context = {"Game": gameInstance})
+        else:
+            base_url = "/endGame"
+            gameCode_url = urlencode({'gameCode': gameInstance.game_code})
+            url_additive = '{}?{}'.format(base_url, gameCode_url)
+            return redirect(url_additive)
+
 @csrf_exempt
 def endGame(request):
     gameCode  = request.GET.get('gameCode');
@@ -128,3 +136,8 @@ def reStructure(colorTeamPlayers, IndexedGoalsandAssists):
                             'points': int(IndexedGoalsandAssists[v]['goals']) + int(IndexedGoalsandAssists[v]['assists'])}
     
     return structuredDict 
+
+def playerStats(request):
+    return render(request = request,
+                        template_name = 'main/playerStats.html',
+                        context = {})
